@@ -1,0 +1,41 @@
+// Función auxiliar para imprimir en pantalla
+function log(mensaje) {
+  const logDiv = document.getElementById("log");
+  const p = document.createElement("p");
+  p.textContent = mensaje;
+  logDiv.appendChild(p);
+}
+
+// Simulamos una tarea asíncrona con Promesa
+function tareaAsincrona(nombre, tiempo) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`✅ ${nombre} terminada en ${tiempo / 1000}s`);
+    }, tiempo);
+  });
+}
+
+// Ejemplo de ejecución secuencial con async/await
+async function ejecutarTareas() {
+  log("🔹 Inicio del proceso...");
+
+  // Llamada 1
+  const resultado1 = await tareaAsincrona("Tarea 1", 2000);
+  log(resultado1);
+
+  // Llamada 2
+  const resultado2 = await tareaAsincrona("Tarea 2", 1500);
+  log(resultado2);
+
+  // Llamada 3
+  const resultado3 = await tareaAsincrona("Tarea 3", 1000);
+  log(resultado3);
+
+  log("🏁 Proceso finalizado.");
+}
+
+// Escuchamos el clic en el botón
+document.getElementById("btnAsync").addEventListener("click", () => {
+  document.getElementById("log").innerHTML = ""; // limpiar log
+  ejecutarTareas();
+});
